@@ -67,8 +67,10 @@ section.blk{padding:40px 0}
 /* products */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
 .prod{display:flex;flex-direction:column;border:1px solid var(--card-b);background:var(--card-bg);border-radius:30px;overflow:hidden}
-.pimg{position:relative;aspect-ratio:1/1;display:grid;place-items:center;background:radial-gradient(circle at 50% 55%,rgba(236,127,160,.14),transparent 65%)}
-.pimg img{width:86%;height:86%;object-fit:contain;filter:drop-shadow(0 14px 18px rgba(0,0,0,.45))}
+.pimg{position:relative;width:100%;height:0;padding-top:100%;overflow:hidden;background:radial-gradient(circle at 50% 55%,rgba(236,127,160,.14),transparent 65%)}
+.pimg img{position:absolute;top:7%;left:7%;width:86%;height:86%;max-width:none;object-fit:contain;object-position:center;filter:drop-shadow(0 14px 18px rgba(0,0,0,.45))}
+.pimg img.borda{top:5%;height:95%;object-position:center bottom}
+.pimg .tag{z-index:1}
 .tag{position:absolute;top:14px;left:14px;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;padding:5px 12px;border-radius:999px;border:1px solid var(--selo-b);background:var(--selo-bg)}
 .pbody{padding:4px 20px 20px;display:flex;flex-direction:column;flex:1}
 .pbody h3{font-size:1.35rem;margin-bottom:6px}
@@ -103,7 +105,7 @@ footer .f2{color:var(--txt2);font-size:.8rem;margin-top:10px}
 .x{border:1px solid var(--card-b);background:transparent;color:var(--txt);width:38px;height:38px;border-radius:50%;font-size:1.2rem;cursor:pointer}
 .dbody{flex:1;overflow:auto;padding:18px 22px}
 .item{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(126,30,68,.6)}
-.item img{width:58px;height:58px;object-fit:contain}
+.item img{width:58px;height:58px;flex:0 0 58px;object-fit:contain}
 .item .nm{flex:1}
 .item .nm b{display:block;font-weight:600}
 .item .nm small{color:var(--txt2)}
@@ -296,7 +298,7 @@ function renderGrid(){
     const ctrl = q ? `<div class="qty"><button data-a="-" data-id="${p.id}" aria-label="Menos">−</button><span>${q}</span><button class="plus" data-a="+" data-id="${p.id}" aria-label="Mais">+</button></div>`
                    : `<button class="add" data-a="+" data-id="${p.id}">Adicionar</button>`;
     return `<article class="prod">
-      <div class="pimg">${p.tag?`<span class="tag">${p.tag}</span>`:""}<img src="${p.foto}" alt="Donut ${p.nome}"></div>
+      <div class="pimg">${p.tag?`<span class="tag">${p.tag}</span>`:""}<img src="${p.foto}" alt="Donut ${p.nome}"${p.id==="nutella"?' class="borda"':""}></div>
       <div class="pbody"><h3>${p.nome}</h3><p>${p.desc}</p>
       <div class="prow"><span class="price">${brl(p.preco)}</span>${ctrl}</div></div></article>`;
   }).join("");
